@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
+from materials.validators import PayValidator
 from users.models import User, Payment
 
 
@@ -7,6 +8,7 @@ class PaymentSerializer(ModelSerializer):
     class Meta:
         model = Payment
         fields = "__all__"
+        validators = [PayValidator(field1='course', field2='lesson')]
 
 
 class UserSerializer(ModelSerializer):

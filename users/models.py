@@ -64,3 +64,18 @@ class Payment(models.Model):
     payment_way = models.IntegerField(
         choices=WAYS, default=1, verbose_name="Способ оплаты"
     )
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="subscriptions",
+        verbose_name="Пользователь",
+    )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name="subscriptions",
+        verbose_name="Оплаченный курс",
+    )
