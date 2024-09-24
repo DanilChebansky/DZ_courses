@@ -13,7 +13,11 @@ from rest_framework.viewsets import ModelViewSet
 
 from materials.models import Course, Lesson
 from materials.paginators import CustomPagination
-from materials.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from materials.serializers import (
+    CourseSerializer,
+    LessonSerializer,
+    SubscriptionSerializer,
+)
 from users.models import Subscription
 from users.permissions import IsModer, IsOwner
 
@@ -34,7 +38,10 @@ class CourseViewSet(ModelViewSet):
         elif self.action in ["update", "retrieve"]:
             self.permission_classes = (IsModer | IsOwner,)
         elif self.action == "destroy":
-            self.permission_classes = (~IsModer, IsOwner,)
+            self.permission_classes = (
+                ~IsModer,
+                IsOwner,
+            )
         return super().get_permissions()
 
 
@@ -88,9 +95,9 @@ class SubscriptionAPIView(APIView):
 
         if subs_item.exists():
             subs_item.delete()
-            message = 'подписка удалена'
+            message = "подписка удалена"
         else:
             subs_item_new = Subscription.objects.create(user=user, course=course_item)
             subs_item_new.save()
-            message = 'подписка добавлена'
+            message = "подписка добавлена"
         return Response({"message": message})

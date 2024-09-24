@@ -8,7 +8,8 @@ from materials.views import (
     LessonCreateAPIView,
     LessonUpdateAPIView,
     LessonDestroyAPIView,
-    LessonRetrieveAPIView, SubscriptionAPIView
+    LessonRetrieveAPIView,
+    SubscriptionAPIView,
 )
 
 

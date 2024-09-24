@@ -8,7 +8,7 @@ class PaymentSerializer(ModelSerializer):
     class Meta:
         model = Payment
         fields = "__all__"
-        validators = [PayValidator(field1='course', field2='lesson')]
+        validators = [PayValidator(field1="course", field2="lesson")]
 
 
 class UserSerializer(ModelSerializer):

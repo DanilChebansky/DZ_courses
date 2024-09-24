@@ -64,6 +64,18 @@ class Payment(models.Model):
     payment_way = models.IntegerField(
         choices=WAYS, default=1, verbose_name="Способ оплаты"
     )
+    link = models.URLField(
+        max_length=400,
+        **NULLABLE,
+        verbose_name='Ссылка на оплату',
+        help_text='Укажите ссылку на оплату'
+    )
+    session_id = models.CharField(
+        max_length=255,
+        **NULLABLE,
+        verbose_name='Id сессии',
+        help_text='Укажите id сессии'
+    )
 
 
 class Subscription(models.Model):
