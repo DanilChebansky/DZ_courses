@@ -59,7 +59,7 @@ class PaymentCreateAPIView(generics.CreateAPIView):
         course_item = get_object_or_404(Course, pk=course_id)
         product = create_stripe_product(course_item)
         price = create_stripe_price(payment.payment_sum, product)
-        session_id, link = create_stripe_session(price)
+        session_id, link = create_stripe_session(price, )
         payment.session_id = session_id
         payment.link = link
         payment.save()

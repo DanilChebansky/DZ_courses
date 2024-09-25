@@ -21,6 +21,7 @@ from materials.serializers import (
 from users.models import Subscription
 from users.permissions import IsModer, IsOwner
 
+from drf_yasg.utils import swagger_auto_schema
 
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
@@ -86,6 +87,8 @@ class SubscriptionAPIView(APIView):
     serializer_class = SubscriptionSerializer
     permission_classes = [~IsModer]
 
+    @swagger_auto_schema(operation_description="Subscription's creation", responses={201: "creation or deletion of "
+                                                                                          "subscription"})
     def post(self, *args, **kwargs):
         user = self.request.user
         course_id = self.request.data.get("course")

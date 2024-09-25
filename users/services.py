@@ -7,7 +7,7 @@ stripe.api_key = STRIPE_API_KEY
 def create_stripe_product(course):
     """Создает продукт в страйпе"""
     return stripe.Product.create(
-        name=course.get("name")
+        name=course.name
     )
 
 
