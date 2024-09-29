@@ -26,7 +26,8 @@ class Course(models.Model):
         on_delete=models.SET_NULL,
         **NULLABLE,
         verbose_name="Владелец",
-        help_text="Укажите владельца"
+        help_text="Укажите владельца",
+        related_name="courses"
     )
 
     class Meta:

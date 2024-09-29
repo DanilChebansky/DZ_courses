@@ -24,4 +24,4 @@ class AnotherUserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "phone", "city", "is_active")
+        fields = ("id", "email", "phone", "city", "is_active", "last_login")

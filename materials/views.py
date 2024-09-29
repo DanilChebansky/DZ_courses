@@ -1,3 +1,4 @@
+from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import (
     CreateAPIView,
@@ -18,6 +19,7 @@ from materials.serializers import (
     LessonSerializer,
     SubscriptionSerializer,
 )
+from materials.tasks import send_updating_mail
 from users.models import Subscription
 from users.permissions import IsModer, IsOwner
 
@@ -44,6 +46,17 @@ class CourseViewSet(ModelViewSet):
                 IsOwner,
             )
         return super().get_permissions()
+
+
+    def update(self, request, pk=None):
+        course = get_object_or_404(Course, pk=pk)
+        serializer = self.get_serializer(course, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            send_updating_mail.delay(course)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LessonCreateAPIView(CreateAPIView):
